@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: tx-order
+  cloud:
+    nacos:
+      config:
+        namespace: 604635fc-53c7-421e-a82c-4d1c4f838347
+        group: tcc
+        server-addr: 192.168.118.103:8848
+        file-extension: yaml
+      discovery:
+        namespace: 604635fc-53c7-421e-a82c-4d1c4f838347
+        group: tcc
+        server-addr: 192.168.118.103:8848

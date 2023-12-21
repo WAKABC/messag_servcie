@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>收银台</title>
+</head>
+
+<body>
+<div class="contentDiv">
+
+    <h5> 淘宝支付分布式事务code案例2023.5.7,谢谢各位粉丝的坚持payForm.html</h5>
+
+    <legend>
+        <strong>支付-收银台</strong>
+    </legend>
+
+    <form th:action="@{/pay/create}" method="post" class="form-horizontal">
+
+        <input type="hidden" name="orderNo" th:value="${pay.orderNo}"/>
+        <input type="hidden" name="amount" th:value="${pay.amount}"/>
+        <input type="hidden" name="userId" th:value="${pay.userId}"/>
+
+        <div class="form-group">
+            <label for="pay_name" class="col-sm-2 control-label">订单号:</label>
+            <div class="col-xs-4">
+                <span th:text=${pay.orderNo}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="pay_name" class="col-sm-2 control-label">支付金额:</label>
+            <div class="col-xs-4">
+                <span th:text=${pay.amount}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="pay_payState" class="col-sm-2 control-label">支付方式:</label>
+            <div class="col-xs-4">
+                <div class="radio-box">
+                    <input  type="radio"   id="payState"  th:field="*{pay.payState}" value="0">
+                    <label >余额</label>
+                </div>
+                <div class="radio-box">
+                    <input  type="radio"   id="payState"  th:field="*{pay.payState}" value="1">
+                    <label >微信</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio"  id="payState"  th:field="*{pay.payState}" value="2">
+                    <label >支付宝</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-primary" type="submit" value="去支付"/>&nbsp;&nbsp;
+                <input class="btn" type="button" value="返回" onclick="history.back()"/>
+            </div>
+            <hr><br>
+            <div class="col-sm-offset-2 col-sm-10">
+                按照订单号，选择任意一种支付方式(余额、微信、支付宝)点击【去支付按钮】<br>
+                会调用PayController.java里面的public String create(@ModelAttribute PayDTO payDTO)方法<br>
+                提交表单后就进入了支付二维码payConfirmForm.html
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
