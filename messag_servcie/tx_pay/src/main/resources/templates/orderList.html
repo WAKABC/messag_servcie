@@ -35,7 +35,7 @@
             <td th:text="${order.orderNo}"></td>
             <td th:text="${order.paymentMoney}"></td>
             <td th:text="${order.largessScore}"></td>
-            <td th:text="${order.status}"></td>
+            <td th:text="${order.status == 2 ? '未支付' : (order.status == 3 ? '已完成' : '')}"></td>
             <td><a class="btn btn-danger" th:href="@{/pay/create/{orderNo}(orderNo=${order.orderNo})}">支付</a></td>
         </tr>
         </tbody>

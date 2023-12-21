@@ -1,5 +1,6 @@
 package com.wak.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -9,20 +10,31 @@ import lombok.Getter;
  * @Version 1.0
  */
 @Getter
+@AllArgsConstructor
 public enum MsgEnum {
     /**
      * Not pay order status enum.
      */
-    ORDER(1, "order"),
+    ORDER(1, "topic_tx_order", "order"),
 
-    SCORE(2, "score");
+    SCORE(2, "topic_tx_score", "score"),
 
+    INVENTORY(3, "topic_tx_inventory", "inventory"),
+
+    COUPON(4, "topic_tx_coupon", "coupon");
+
+    /**
+     * 代码
+     */
     private int code;
 
-    private String desc;
+    /**
+     * 消息主题
+     */
+    private String msgTopic;
 
-    MsgEnum(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
+    /**
+     * 描述
+     */
+    private String desc;
 }

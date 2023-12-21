@@ -2,10 +2,10 @@ package com.wak.score.msg;
 
 import com.alibaba.fastjson.JSON;
 import com.wak.constant.Constant;
-import com.wak.entities.ScoreDTO;
+import com.wak.entities.score.ScoreDTO;
 import com.wak.enums.MsgEnum;
 import com.wak.score.service.ScoreService;
-import com.wak.tx.msg.api.MsgApi;
+import com.wak.api.MsgApi;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;

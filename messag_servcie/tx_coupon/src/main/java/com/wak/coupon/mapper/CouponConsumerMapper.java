@@ -2,7 +2,7 @@ package com.wak.coupon.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.wak.entities.CouponConsumer;
+import com.wak.entities.coupon.CouponConsumer;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

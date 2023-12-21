@@ -1,6 +1,6 @@
 package com.wak.score.controller;
 
-import com.wak.entities.ScoreDTO;
+import com.wak.entities.score.ScoreDTO;
 import com.wak.score.service.ScoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

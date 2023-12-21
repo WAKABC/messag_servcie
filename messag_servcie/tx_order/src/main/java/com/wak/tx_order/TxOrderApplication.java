@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan(basePackages = "com.wak.tx_order.mapper")
-@EnableFeignClients(basePackages = {"com.wak.tx.inventory.api", "com.wak.tx.order.api", "com.wak.tx.score.api", "com.wak.tx.coupon.api", "com.wak.tx.msg.api"})
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxOrderApplication {
 
     public static void main(String[] args) {

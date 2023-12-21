@@ -16,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(scanBasePackages = {"com.wak.tx.msg"}, scanBasePackageClasses = XxlJobProperties.class)
 @MapperScan({"com.wak.tx.msg.mapper"})
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.wak.tx.pay.api"})
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxMsgApplication {
 
     public static void main(String[] args) {

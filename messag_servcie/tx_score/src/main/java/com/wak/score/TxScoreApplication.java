@@ -9,7 +9,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.wak.score.mapper")
-@EnableFeignClients(basePackages = {"com.wak.tx.msg.api"})
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxScoreApplication {
 
     public static void main(String[] args) {

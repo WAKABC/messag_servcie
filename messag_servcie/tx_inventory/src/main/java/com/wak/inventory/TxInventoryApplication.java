@@ -1,6 +1,6 @@
 package com.wak.inventory;
 
-import com.wak.tx.inventory.api.InventoryApi;
+import com.wak.api.InventoryApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -16,7 +16,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.wak.inventory.mapper")
-@EnableFeignClients(basePackageClasses = InventoryApi.class)
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxInventoryApplication {
 
     public static void main(String[] args) {

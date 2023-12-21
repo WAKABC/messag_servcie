@@ -1,7 +1,7 @@
 package com.wak.score.mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.wak.entities.ScoreDetail;
+import com.wak.entities.score.ScoreDetail;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

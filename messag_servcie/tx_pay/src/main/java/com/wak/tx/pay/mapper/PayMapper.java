@@ -1,6 +1,6 @@
 package com.wak.tx.pay.mapper;
 
-import com.wak.entities.Pay;
+import com.wak.entities.pay.Pay;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

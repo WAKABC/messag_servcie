@@ -1,8 +1,7 @@
 package com.wak.coupon.controller;
 
-import com.wak.entities.Coupon;
 import com.wak.coupon.service.CouponService;
-import com.wak.entities.CouponDTO;
+import com.wak.entities.coupon.CouponDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.wak.tx.msg.controller;
 
-import com.wak.entities.MsgDTO;
+import com.wak.entities.msg.MsgDTO;
 import com.wak.tx.msg.service.MsgService;
 import org.springframework.web.bind.annotation.*;
 

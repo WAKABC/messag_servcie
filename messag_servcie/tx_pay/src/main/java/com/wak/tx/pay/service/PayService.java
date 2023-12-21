@@ -2,17 +2,19 @@ package com.wak.tx.pay.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
-import com.wak.constant.Constant;
-import com.wak.entities.MsgDTO;
-import com.wak.entities.Pay;
-import com.wak.entities.PayDTO;
-import com.wak.entities.ScoreDTO;
+import com.wak.entities.coupon.CouponDTO;
+import com.wak.entities.inventory.InventoryDTO;
+import com.wak.entities.msg.MsgDTO;
+import com.wak.entities.pay.Pay;
+import com.wak.entities.pay.PayDTO;
+import com.wak.entities.score.ScoreDTO;
 import com.wak.entities.order.Order;
 import com.wak.entities.order.OrderDTO;
 import com.wak.enums.MsgEnum;
+import com.wak.tools.AssembleObjUtil;
 import com.wak.tools.DatetimeUtil;
-import com.wak.tx.msg.api.MsgApi;
-import com.wak.tx.order.api.OrderApi;
+import com.wak.api.MsgApi;
+import com.wak.api.OrderApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -84,82 +86,48 @@ public class PayService {
     @Transactional(rollbackFor = Exception.class)
     public void confirmPayHandle(String payNo) {
         Pay pay = payMapper.findOneByPayNo(payNo);
-        //步骤1，发送order和score消息给msg
-        this.sendOrderHalfMsg(pay);
-        //获取赠送的积分数
         Order order = orderApi.findOrderByOrderNo(pay.getOrderNo());
-        this.sendScoreHalfMsg(pay, order.getLargessScore());
+        //步骤1，发送消息给msg
+        this.sendSpecifiedHalfMsg(MsgEnum.ORDER, order);
+        this.sendSpecifiedHalfMsg(MsgEnum.SCORE, order);
+        this.sendSpecifiedHalfMsg(MsgEnum.INVENTORY, order);
+        this.sendSpecifiedHalfMsg(MsgEnum.COUPON, order);
         //步骤3，执行本地事务
         this.confirmPay(pay);
-        //步骤4，通知msg修改order和score消息状态
-        this.sendOrderConfirmMsg(pay.getOrderNo());
-        this.sendScoreConfirmMsg(pay.getOrderNo());
+        //步骤4，发送确认消息
+        this.sendSpecifiedConfirmMsg(MsgEnum.ORDER, pay.getOrderNo());
+        this.sendSpecifiedConfirmMsg(MsgEnum.SCORE, pay.getOrderNo());
+        this.sendSpecifiedConfirmMsg(MsgEnum.INVENTORY, pay.getOrderNo());
+        this.sendSpecifiedConfirmMsg(MsgEnum.COUPON, pay.getOrderNo());
     }
 
     /**
-     * 发送积分确认消息
+     * 发送指定的半消息
      *
-     * @param orderNo 订单编号
+     * @param msgEnum 消息类型
+     * @param order   订单对象
      */
-    private void sendScoreConfirmMsg(String orderNo) {
-        String msgId = MsgEnum.SCORE.getCode() + "-" + orderNo;
-        msgApi.confirmMsg(msgId);
-    }
-
-    /**
-     * 发送积分半消息
-     *
-     * @param pay   支付
-     * @param score 积分数
-     */
-    private void sendScoreHalfMsg(Pay pay, int score) {
-        MsgDTO msgDTO = new MsgDTO();
-        String msgId = MsgEnum.SCORE.getCode() + "-" + pay.getOrderNo();
-        msgDTO.setMsgId(msgId);
-        msgDTO.setAppName(this.appName);
-        msgDTO.setRoutingKey(Constant.MQ_SCORE_ROUTING_KEY);
-
-        ScoreDTO scoreDTO = new ScoreDTO();
-        scoreDTO.setOrderNo(pay.getOrderNo());
-        scoreDTO.setUserId(pay.getUserId());
-        scoreDTO.setScore(score);
-        msgDTO.setJsonMsg(JSON.toJSONString(scoreDTO));
-        msgApi.halfMsg(msgDTO);
-    }
-
-    /**
-     * 发送订单半消息
-     *
-     * @param pay 支付
-     */
-    private void sendOrderHalfMsg(Pay pay) {
-        MsgDTO msgDTO = new MsgDTO();
-        String msgId = MsgEnum.ORDER.getCode() + "-" + pay.getOrderNo();
-        msgDTO.setMsgId(msgId);
-        msgDTO.setAppName(this.appName);
-        msgDTO.setRoutingKey(Constant.MQ_ORDER_ROUTING_KEY);
-
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUserId(pay.getUserId());
-        orderDTO.setOrderNo(pay.getOrderNo());
-        msgDTO.setJsonMsg(JSON.toJSONString(orderDTO));
+    private void sendSpecifiedHalfMsg(MsgEnum msgEnum, Order order) {
+        //assembly msgdto
+        MsgDTO msgDTO = AssembleObjUtil.assemblyMsgDto(msgEnum, appName, order);
         //send msg
         msgApi.halfMsg(msgDTO);
     }
 
 
     /**
-     * 发送订单确认消息
+     * 发送指定确认消息
      *
+     * @param msgEnum 消息类型
      * @param orderNo 订单编号
      */
-    private void sendOrderConfirmMsg(String orderNo) {
-        String msgId = MsgEnum.ORDER.getCode() + "-" + orderNo;
+    private void sendSpecifiedConfirmMsg(MsgEnum msgEnum, String orderNo) {
+        String msgId = msgEnum.getCode() + "-" + orderNo;
         msgApi.confirmMsg(msgId);
     }
 
     /**
-     * 检查消息
+     * 消息回查
      *
      * @param orderId 消息id
      * @return boolean

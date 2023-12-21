@@ -1,13 +1,13 @@
 package com.wak.tx_order.service;
 
 import cn.hutool.core.util.ObjUtil;
-import com.wak.entities.CouponDTO;
-import com.wak.entities.InventoryDTO;
-import com.wak.entities.ScoreDTO;
+import com.wak.entities.coupon.CouponDTO;
+import com.wak.entities.inventory.InventoryDTO;
+import com.wak.entities.score.ScoreDTO;
 import com.wak.entities.order.Order;
-import com.wak.tx.coupon.api.CouponApi;
-import com.wak.tx.inventory.api.InventoryApi;
-import com.wak.tx.score.api.ScoreApi;
+import com.wak.api.CouponApi;
+import com.wak.api.InventoryApi;
+import com.wak.api.ScoreApi;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hmily.annotation.Hmily;
 import org.springframework.stereotype.Service;
@@ -58,20 +58,20 @@ public class OrderService {
 
         inventoryDTO.setUserId(order.getUserId());
         inventoryDTO.setProductId(order.getProductId());
-        inventoryDTO.setCount(order.getProductCount());
+        inventoryDTO.setProductCount(order.getProductCount());
         inventoryDTO.setOrderNo(order.getOrderNo());
         inventoryApi.decrease(inventoryDTO);
         //抵扣积分
         ScoreDTO scoreDTO=new ScoreDTO();
         scoreDTO.setUserId(order.getUserId());
         scoreDTO.setOrderNo(order.getOrderNo());
-        scoreDTO.setScore(order.getDecreaseScore());
+        scoreDTO.setLargessScore(order.getDecreaseScore());
         scoreApi.decrease(scoreDTO);
         //扣除优惠券
         CouponDTO couponDTO=new CouponDTO();
         couponDTO.setUserId(order.getUserId());
         couponDTO.setOrderNo(order.getOrderNo());
-        couponDTO.setCouponId(order.getCouponReceiveId());
+        couponDTO.setCouponReceiveId(order.getCouponReceiveId());
         couponApi.decrease(couponDTO);
         return 1;
     }

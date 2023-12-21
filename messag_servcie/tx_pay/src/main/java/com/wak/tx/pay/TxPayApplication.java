@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @MapperScan({"com.wak.tx.pay.mapper"})
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.wak.tx.msg.api", "com.wak.tx.order.api"})
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxPayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TxPayApplication.class, args);

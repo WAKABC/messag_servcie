@@ -1,8 +1,7 @@
 package com.wak.tx.msg.xxljob;
 
 import com.wak.constant.Constant;
-import com.wak.entities.Msg;
-import com.wak.tx.msg.mapper.MsgMapper;
+import com.wak.entities.msg.Msg;
 import com.wak.tx.msg.service.MsgService;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;

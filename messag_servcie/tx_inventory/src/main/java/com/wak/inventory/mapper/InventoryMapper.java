@@ -2,7 +2,7 @@ package com.wak.inventory.mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
-import com.wak.entities.Inventory;
+import com.wak.entities.inventory.Inventory;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

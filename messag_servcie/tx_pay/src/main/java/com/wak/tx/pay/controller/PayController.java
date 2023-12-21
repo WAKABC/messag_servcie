@@ -3,9 +3,9 @@ package com.wak.tx.pay.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
 import com.wak.entities.order.Order;
-import com.wak.entities.Pay;
-import com.wak.entities.PayDTO;
-import com.wak.tx.order.api.OrderApi;
+import com.wak.entities.pay.Pay;
+import com.wak.entities.pay.PayDTO;
+import com.wak.api.OrderApi;
 import com.wak.tx.pay.service.PayService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -133,7 +133,7 @@ public class PayController {
     @GetMapping("/confirmPay")
     public String confirmPay(String payNo){
         this.payService.confirmPayHandle(payNo);
-        return "orderList";
+        return "redirect:orderList";
     }
 
 }

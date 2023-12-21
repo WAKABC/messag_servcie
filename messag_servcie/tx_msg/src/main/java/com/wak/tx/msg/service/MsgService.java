@@ -2,9 +2,8 @@ package com.wak.tx.msg.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
-import com.wak.constant.Constant;
-import com.wak.entities.Msg;
-import com.wak.entities.MsgDTO;
+import com.wak.entities.msg.Msg;
+import com.wak.entities.msg.MsgDTO;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.stereotype.Service;
 

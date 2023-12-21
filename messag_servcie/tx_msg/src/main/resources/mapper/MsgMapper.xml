@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wak.tx.msg.mapper.MsgMapper">
-  <resultMap id="BaseResultMap" type="com.wak.entities.Msg">
+  <resultMap id="BaseResultMap" type="com.wak.entities.msg.Msg">
     <!--@mbg.generated generated on Mon Dec 11 16:19:38 CST 2023.-->
     <!--@Table tx_msg-->
     <id column="id" jdbcType="INTEGER" property="id" />

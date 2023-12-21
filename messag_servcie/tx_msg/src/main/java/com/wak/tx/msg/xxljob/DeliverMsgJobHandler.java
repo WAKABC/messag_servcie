@@ -1,9 +1,9 @@
 package com.wak.tx.msg.xxljob;
 
 import com.wak.constant.Constant;
-import com.wak.entities.Msg;
+import com.wak.entities.msg.Msg;
 import com.wak.tx.msg.service.MsgService;
-import com.wak.tx.pay.api.PayApi;
+import com.wak.api.PayApi;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

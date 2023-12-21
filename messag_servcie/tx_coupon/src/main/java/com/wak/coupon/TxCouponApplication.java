@@ -15,7 +15,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.wak.coupon.mapper")
-@EnableFeignClients(basePackages = {"com.wak.tx.coupon.api"})
+@EnableFeignClients(basePackages = {"com.wak.api"})
 public class TxCouponApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TxCouponApplication.class, args);

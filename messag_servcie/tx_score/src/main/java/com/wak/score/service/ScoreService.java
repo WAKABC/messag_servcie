@@ -2,8 +2,8 @@ package com.wak.score.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
-import com.wak.entities.ScoreDTO;
-import com.wak.entities.ScoreDetail;
+import com.wak.entities.score.ScoreDTO;
+import com.wak.entities.score.ScoreDetail;
 import com.wak.enums.TccEnum;
 import com.wak.score.mapper.ScoreDetailMapper;
 import com.wak.score.mapper.ScoreMapper;
@@ -48,7 +48,7 @@ public class ScoreService {
      * @param scoreDTO 分数dto
      */
     private void freezeScore(ScoreDTO scoreDTO) {
-        scoreMapper.freezeScore(scoreDTO.getScore(), scoreDTO.getUserId());
+        scoreMapper.freezeScore(scoreDTO.getLargessScore(), scoreDTO.getUserId());
     }
 
     /**
@@ -83,7 +83,7 @@ public class ScoreService {
     public void saveScoreDetails(ScoreDTO scoreDTO) {
         ScoreDetail scoreDetail = BeanUtil.copyProperties(scoreDTO, ScoreDetail.class);
         scoreDetail.setType((byte) 1);
-        scoreDetailMapper.save(scoreDetail);
+        scoreDetailMapper.insertSelective(scoreDetail);
     }
 
     /**
@@ -93,7 +93,7 @@ public class ScoreService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void addUserScore(ScoreDTO scoreDTO) {
-        scoreMapper.updateTotalScoreByUserId(scoreDTO.getScore(), scoreDTO.getUserId());
+        scoreMapper.updateTotalScoreByUserId(scoreDTO.getLargessScore(), scoreDTO.getUserId());
     }
 
     /**
@@ -103,7 +103,7 @@ public class ScoreService {
      */
     private void checkRemainingScore(ScoreDTO scoreDTO) {
         int totalScore = scoreMapper.findTotalScoreByUserId(scoreDTO.getUserId());
-        if (totalScore < 0 || totalScore - scoreDTO.getScore() < 0) {
+        if (totalScore < 0 || totalScore - scoreDTO.getLargessScore() < 0) {
             throw new RuntimeException("用户积分不足...");
         }
     }
@@ -121,23 +121,5 @@ public class ScoreService {
             return false;
         }
         return true;
-    }
-
-    /**
-     * 解冻积分
-     *
-     * @param scoreDTO 分数dto
-     */
-    private void unFreezeScore(ScoreDTO scoreDTO) {
-        scoreMapper.freezeScore(Math.negateExact(scoreDTO.getScore()), scoreDTO.getUserId());
-    }
-
-    /**
-     * 清除冻结积分
-     *
-     * @param scoreDTO 分数dto
-     */
-    private void updateLockScore(ScoreDTO scoreDTO) {
-        scoreMapper.updateDecLockScoreByUserId(scoreDTO.getScore(), scoreDTO.getUserId());
     }
 }

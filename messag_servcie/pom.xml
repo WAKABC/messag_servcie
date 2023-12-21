@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wak</groupId>
-    <artifactId>tcc</artifactId>
+    <artifactId>message_service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>tcc</name>
+    <name>message_service</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -36,18 +36,12 @@
 
     <modules>
         <module>tx_order</module>
-        <module>tx_order_api</module>
         <module>tx_inventory</module>
-        <module>tx_inventory_api</module>
         <module>tx_common</module>
         <module>tx_score</module>
-        <module>tx_score_api</module>
         <module>tx_coupon</module>
-        <module>tx_coupon_api</module>
         <module>tx_pay</module>
-        <module>tx_pay_api</module>
         <module>tx_msg</module>
-        <module>tx_msg_api</module>
     </modules>
 
     <dependencyManagement>
@@ -106,7 +100,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-core</artifactId>
+                <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
             <dependency>

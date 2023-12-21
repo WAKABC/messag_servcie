@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.wak.constant.Constant;
 import com.wak.entities.order.OrderDTO;
 import com.wak.enums.MsgEnum;
-import com.wak.tx.msg.api.MsgApi;
+import com.wak.api.MsgApi;
 import com.wak.tx_order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;

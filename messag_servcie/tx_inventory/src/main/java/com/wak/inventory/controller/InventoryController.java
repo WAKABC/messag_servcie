@@ -1,6 +1,6 @@
 package com.wak.inventory.controller;
 
-import com.wak.entities.InventoryDTO;
+import com.wak.entities.inventory.InventoryDTO;
 import com.wak.inventory.service.InventoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,7 @@ public class InventoryController {
     @PostMapping("/inventory/decrease")
     public String decrease(@RequestBody InventoryDTO inventoryDTO){
         log.info("calling inventory decrease method:{}",inventoryDTO);
-        return inventoryService.decrease(inventoryDTO);
+        inventoryService.decrease(inventoryDTO);
+        return "success";
     }
 }

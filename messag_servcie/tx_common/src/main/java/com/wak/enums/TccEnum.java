@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * @author wuankang
  * @date 2023/11/29 10:13
- * @Description TODO
+ * @Description TODO TCC 事务状态 Hmliy用
  * @Version 1.0
  */
 @Getter

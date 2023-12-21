@@ -18,6 +18,16 @@ public interface Constant {
     String MQ_SCORE_ROUTING_KEY = "topic_tx_score";
 
     /**
+     * Mq积分路由键
+     */
+    String MQ_INVENTORY_ROUTING_KEY = "topic_tx_inventory";
+
+    /**
+     * Mq积分路由键
+     */
+    String MQ_COUPON_ROUTING_KEY = "topic_tx_coupon";
+
+    /**
      * xxl-job msg:过期时间 单位分钟
      */
     int VERDUE_TIME = 1;

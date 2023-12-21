@@ -24,7 +24,7 @@ public class OrderController {
 
     @GetMapping("/order/add")
     public String addOrder(@RequestParam("couponNo") Integer couponNo) {
-        Order order = AssembleObjUtil.assembleOrder(couponNo);
+        Order order = AssembleObjUtil.assemblyOrder(couponNo);
         int i = orderService.addOrder(order);
         return "-----success add order to mysql: " + "\t" + i + "\t" + DateUtil.now();
     }
