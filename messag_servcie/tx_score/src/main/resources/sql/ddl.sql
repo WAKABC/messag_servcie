@@ -2,30 +2,32 @@ drop database if exists tx_score;
 create database if not exists tx_score;
 use tx_score;
 
-DROP TABLE IF EXISTS tx_score;
-CREATE TABLE tx_score
+create table tx_score.tx_score
 (
-    `id`          int(10) NOT NULL AUTO_INCREMENT,
-    `user_id`     INT(10) COMMENT '用户号',
-    `total_score` INT(10) COMMENT '总积分',
-    `lock_score`  INT(10) COMMENT '冻结积分',
-    `deleted`     TINYINT(1) COMMENT '删除标志',
-    `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (id)
-) COMMENT = '积分表';
+    id          int(10) auto_increment
+        primary key,
+    user_id     int(10)                             null comment '用户号',
+    total_score int(10)                             null comment '总积分',
+    lock_score  int(10)                             null comment '冻结积分',
+    deleted     tinyint(1)                          null comment '删除标志',
+    create_time timestamp default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_time timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
+)
+    comment '积分表';
+
+create table tx_score.tx_score_detail
+(
+    id          int(10) auto_increment
+        primary key,
+    order_no    varchar(255)                        null comment '订单编号',
+    tx_status   tinyint(1)                          null comment '订单状态',
+    user_id     int(10)                             null comment '用户编号',
+    score       int(10)                             null comment '积分',
+    type        tinyint   default 0                 null comment '积分类型 0=消耗，1=新增',
+    deleted     tinyint(1)                          null comment '删除标志',
+    create_time timestamp default CURRENT_TIMESTAMP not null comment '创建时间',
+    update_time timestamp default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
+)
+    comment '积分详细表';
 
 
-DROP TABLE IF EXISTS tx_score_detail;
-CREATE TABLE tx_score_detail
-(
-    `id`          int(10) NOT NULL AUTO_INCREMENT,
-    `order_no`    VARCHAR(255) COMMENT '订单编号',
-    `tx_status`   TINYINT(1) COMMENT '订单状态',
-    `user_id`     INT(10) COMMENT '用户编号',
-    `score`       INT(10) COMMENT '积分',
-    `deleted`     TINYINT(1) COMMENT '删除标志',
-    `create_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (id)
-) COMMENT = '积分详细表';
