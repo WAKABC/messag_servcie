@@ -29,7 +29,7 @@ public class ConsumeMsgJobHandler {
         //获取状态为已发送的消息
         List<Msg> msgs = msgService.selectOverdueMsgBySend(Constant.VERDUE_TIME);
         msgs.forEach(msg -> {
-            //重新投递
+            //重新投递，采用重试机制代替回滚操作
             rocketMQTemplate.convertAndSend(msg.getRoutingKey(), msg.getJsonMsg());
         });
     }

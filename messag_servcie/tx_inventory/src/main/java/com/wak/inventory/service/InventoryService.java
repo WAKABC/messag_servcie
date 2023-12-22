@@ -78,9 +78,11 @@ public class InventoryService {
 
     /**
      * 检查存货数量
+     * 独立消息服务架构不能处理业务异常，此方法弃用
      *
      * @param inventoryDTO 库存dto
      */
+    @Deprecated
     private void checkInventoryCount(InventoryDTO inventoryDTO) {
         Inventory inventory = inventoryMapper.selectByPrimaryKey(inventoryDTO.getProductId());
         if (ObjUtil.isEmpty(inventory)) {

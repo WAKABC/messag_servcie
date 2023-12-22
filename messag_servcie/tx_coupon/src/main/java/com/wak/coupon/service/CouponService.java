@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Detainted;
 import javax.annotation.Resource;
 
 /**
@@ -37,8 +38,6 @@ public class CouponService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void decrease(CouponDTO couponDTO) {
-        //判断优惠券是否有效
-        checkUseful(couponDTO);
         //幂等校验
         checkIdempotent(couponDTO);
         //保存到优惠券消费表
@@ -71,9 +70,10 @@ public class CouponService {
 
     /**
      * 检查优惠券是否可用
-     *
+     * 独立消息服务架构不能处理业务异常，此方法弃用
      * @param couponDTO 优惠券dto
      */
+    @Deprecated
     private void checkUseful(CouponDTO couponDTO) {
         CouponReceive coupon = couponReceiveMapper.findOneByCouponId(couponDTO.getCouponReceiveId());
         if (ObjUtil.isEmpty(coupon)) {
